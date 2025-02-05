@@ -1,0 +1,44 @@
+{
+    "Customer01": {
+        "CustomerType": "guest",
+        "FirstName": "John",
+        "LastName": "Doe",
+        "Address": {
+            "Street": "450 Sutter Street",
+            "City": "San Francisco",
+            "ZipCode": "94108",
+            "State": "California",
+            "Country": "United States"
+        },
+        "Contact": {
+            "Phone": "1234567890",
+            "EmailAddress": "pocTest1@mailinator.com"
+        },
+        "CreditCard": {
+            "CardNumber": "4111 1111 1111 1111",
+            "Expiry": "01/30",
+            "Cvv": "123"
+        }
+    },
+    "Customer02": {
+        "CustomerType": "guest",
+        "FirstName": "Sue",
+        "LastName": "Lei",
+        "Address": {
+            "Street": "123 Elm Street",
+            "City": "Somewhere",
+            "ZipCode": "12345",
+            "State": "SomeState",
+            "Country": "United States"
+        },
+        "Contact": {
+            "Phone": "0987654321",
+            "EmailAddress": "example@mailinator.com"
+        },
+        "CreditCard": {
+            "CardNumber": "4222 2222 2222 2222",
+            "Expiry": "02/31",
+            "Cvv": "456"
+        }
+    }
+}

@@ -1,0 +1,133 @@
+{
+    "Customer01": {
+        "CustomerType": "guest",
+        "FirstName": "John",
+        "LastName": "Doe",
+        "Address": {
+            "Street": "450 Sutter Street",
+            "City": "San Francisco",
+            "ZipCode": "94108",
+            "State": "California",
+            "Country": "United States"
+        },
+        "Contact": {
+            "Phone": "1234567890",
+            "EmailAddress": "pocTest1@mailinator.com",
+            "Password": ""
+        },
+        "CreditCard": {
+            "CardNumber": "4111 1111 1111 1111",
+            "Expiry": "01/30",
+            "Cvv": "123"
+        },
+        "Paypal": {
+            "PaypalEmail": "sb-cy6op28360473@personal.example.com",
+            "PaypalPassword": "4O+c+^zV"
+
+        }
+    },
+    "Customer02": {
+        "CustomerType": "existing",
+        "FirstName": "Kate",
+        "LastName": "Lei",
+        "Address": {
+            "Street": "450 Sutter Street",
+            "City": "San Francisco",
+            "ZipCode": "94108",
+            "State": "California",
+            "Country": "United States"
+        },
+        "Contact": {
+            "Phone": "1234567890",
+            "EmailAddress": "testcustomer@mailinator.com",
+            "Password": "Password123!@#"
+        },
+        "CreditCard": {
+            "CardNumber": "4111 1111 1111 1111",
+            "Expiry": "01/30",
+            "Cvv": "123"
+        },
+        "Paypal": {
+            "PaypalEmail": "sb-cy6op28360473@personal.example.com",
+            "PaypalPassword": "4O+c+^zV"
+        }
+    },
+    "Customer03": {
+        "CustomerType": "guest",
+        "FirstName": "Mike",
+        "LastName": "Cooper",
+        "Address": {
+            "Street": "451 Sutter Street",
+            "City": "San Francisco",
+            "ZipCode": "94108",
+            "State": "California",
+            "Country": "United States"
+        },
+        "Contact": {
+            "Phone": "1234567890",
+            "EmailAddress": "pocTest2@mailinator.com",
+            "Password": "Password123!@#"
+        },
+        "CreditCard": {
+            "CardNumber": "4111 1111 1111 1111",
+            "Expiry": "01/30",
+            "Cvv": "123"
+        },
+        "Paypal": {
+            "PaypalEmail": "sb-cy6op28360473@personal.example.com",
+            "PaypalPassword": "4O+c+^zV"
+        }
+    },
+    "Customer04": {
+        "CustomerType": "existing",
+        "FirstName": "Rose",
+        "LastName": "Green",
+        "Address": {
+            "Street": "450 Sutter Street",
+            "City": "San Francisco",
+            "ZipCode": "94108",
+            "State": "California",
+            "Country": "United States"
+        },
+        "Contact": {
+            "Phone": "1234567890",
+            "EmailAddress": "20250129104219875Customer@mailinator.com",
+            "Password": "Password123!@#"
+        },
+        "CreditCard": {
+            "CardNumber": "4111 1111 1111 1111",
+            "Expiry": "01/30",
+            "Cvv": "123"
+        },
+        "Paypal": {
+            "PaypalEmail": "sb-cy6op28360473@personal.example.com",
+            "PaypalPassword": "4O+c+^zV"
+        }
+    },
+    "Customerxx": {
+        "CustomerType": "new",
+        "FirstName": "Rose",
+        "LastName": "Green",
+        "Address": {
+            "Street": "450 Sutter Street",
+            "City": "San Francisco",
+            "ZipCode": "94108",
+            "State": "California",
+            "Country": "United States"
+        },
+        "Contact": {
+            "Phone": "1234567890",
+            "EmailAddress": "Customer@mailinator.com",
+            "Password": "Password123!@#"
+        },
+        "CreditCard": {
+            "CardNumber": "4111 1111 1111 1111",
+            "Expiry": "01/30",
+            "Cvv": "123"
+        },
+        "Paypal": {
+            "PaypalEmail": "sb-cy6op28360473@personal.example.com",
+            "PaypalPassword": "4O+c+^zV"
+        }
+    }
+}

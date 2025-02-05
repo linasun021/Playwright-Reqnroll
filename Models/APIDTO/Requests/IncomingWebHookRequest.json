@@ -1,0 +1,42 @@
+{
+    "id": "91e7583f-3ff8-4db7-b964-e41f2234e60c",
+    "metadata": {
+        "subscriptionId": "cc49cc56-3c54-46ef-bf99-846e8d568591",
+        "subscriptionTransportEventId": "7e95f139-6c5c-4301-95b0-9f38eb7a33a4",
+        "eventTypeCode": "StatusUpdateViaApi",
+        "serviceTypeCode": "WarehousingUs",
+        "referenceTypeCode": "OutboundReference",
+        "eventCode": "OrderComplete"
+    },
+    "content": {
+        "reference": {
+            "ourReference": "18090029",
+            "yourReference": "91200278650",
+            "serviceType": "WarehousingUs",
+            "trackingUrl": "https://uat.mainfreight.com/track/MIMSO/18090029",
+            "relatedItems": [
+
+            ],
+            "carrierReferences": [
+                {
+                    "reference": "FD00026",
+                    "carrierName": "FEDEX",
+                    "trackingUrl": "https://www.fedex.com/apps/fedextrack/?action=track&trackingnumber=FD00026"
+                }
+            ],
+            "events": [
+                {
+                    "sequence": 0,
+                    "eventDateTime": "2020-10-19T18:38:00",
+                    "groupingLevel1Code": "Complete",
+                    "groupingLevel2Code": "OrderComplete",
+                    "code": "Complete",
+                    "displayName": "Order Sent",
+                    "location": "",
+                    "isEstimate": false
+                }
+            ],
+            "relatedReferences": null
+        }
+    }
+}

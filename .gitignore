@@ -1,0 +1,8 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/bin/Debug/net8.0
+/Features/EquipmentFrontEnd/EQ_FE_EndtoEnd.feature.cs
+/obj

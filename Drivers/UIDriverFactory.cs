@@ -7,6 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using EquipmentStoresTests.Configuration;
 using System.Windows.Forms;
+using System.IO;
+using Allure.Net.Commons;
+using static System.Net.Mime.MediaTypeNames;
 
 
 namespace EquipmentStoresTests.Drivers
@@ -17,6 +20,7 @@ namespace EquipmentStoresTests.Drivers
         private static IBrowser _browser;
         private static Settings _settings;
         private static IPage _page;
+        private static string _tracingFile;
 
         static UIDriverFactory()
         {
@@ -71,10 +75,11 @@ namespace EquipmentStoresTests.Drivers
 
             if (_settings.EnableTracing)
             {
-                _page.Context.Tracing.StopAsync(new TracingStopOptions
+                _tracingFile = _settings.TraceFile + "_" + scenarioName.Replace(" ", "") + ".zip";
+                await _page.Context.Tracing.StopAsync(new TracingStopOptions
                 {
-                    Path = _settings.TraceFile + "_" + scenarioName.Replace(" ", "") + ".zip"
-                }).Wait();
+                    Path = _tracingFile
+                });
             }
 
             if (_page != null)
@@ -88,6 +93,22 @@ namespace EquipmentStoresTests.Drivers
                 await _browser.CloseAsync();
                 _browser = null;
             }
+            try
+            {
+                string videoDir = Path.Combine(Directory.GetCurrentDirectory(), _settings.VideoDir);
+                string[] videoFiles = Directory.GetFiles(videoDir, "*.webm");
+                foreach (var videoFile in videoFiles)
+                {
+                    if (!videoFile.EndsWith("_Attached.webm"))
+                    {
+                        AllureApi.AddAttachment(videoFile);
+                        File.Move(videoFile, videoFile.Split(".webm")[0] + "_Attached.webm");
+                    }
+                }
+                string traceFile = Path.Combine(Directory.GetCurrentDirectory(), _tracingFile);
+                AllureApi.AddAttachment(traceFile);
+            }
+            catch (Exception ex) { Console.WriteLine(ex.Message); }
             if (_playwright != null)
             {
                 _playwright.Dispose();

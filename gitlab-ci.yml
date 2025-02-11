@@ -1,0 +1,127 @@
+# ======================================== #
+# --------------- Defaults --------------- #
+# ======================================== #
+default:
+  image: registry.gitlab.com/lesmills-international/shared/pipeline/images/playwright-dotnet:latest
+  tags:
+    # GitLab.com public shared Runners
+    - saas-linux-medium-arm64
+
+    # Use these tags for Les Mills AWS Runners
+    # - ec2
+    # - arm64
+    # - docker
+  interruptible: true
+
+workflow:
+  rules:
+    # Create pipelines for merge requests
+    - if: $CI_MERGE_REQUEST_IID
+
+    # Create pipelines for version tags
+    - if: $CI_COMMIT_TAG =~ /^v\d+\.\d+\.\d+/
+
+    # Create pipelines for trunk branch
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+
+    # Create pipelines for hotfix branches
+    - if: $CI_COMMIT_BRANCH =~ /^(hotfix|release)\/.*/
+
+    # Create pipelines requested over GitLab API (bot user only)
+    - if: $CI_PIPELINE_SOURCE == 'api' && $GITLAB_USER_LOGIN == 'lesmillsdigital-gitlab'
+
+    # Create pipelines on renovate-bot dependency upgrade branches
+    - if: $CI_COMMIT_BRANCH =~ /^renovate.*/
+  
+stages:
+  - setup
+  - build
+  - test
+  - deploy
+
+# ======================================== #
+# ------------- Dependencies ------------- #
+# ======================================== #
+.dotnet:cache:
+  cache:
+    key: "$CI_PROJECT_NAME"
+    paths:
+      - .nuget
+    policy: pull
+  before_script:
+    - dotnet restore --packages .nuget
+dotnet:restore:
+  stage: setup
+  extends:
+    - .dotnet:cache
+  script:
+    - dotnet list package
+  cache:
+    policy: pull-push
+
+# ======================================== #
+# ---------------- Build ----------------- #
+# ======================================== #
+dotnet:build:
+  stage: build
+  extends:
+    - .dotnet:cache
+  script:
+  - dotnet build
+  artifacts:
+    untracked: true
+    exclude:
+      - .nuget/**/*
+
+# ======================================== #
+# ----------------- Test ----------------- #
+# ======================================== #
+dotnet:test:
+  stage: test
+  extends:
+    - .dotnet:cache
+  dependencies:
+    - dotnet:build
+  allow_failure: true
+  script:
+    - |
+      # Run tests and ensure the allure generate command runs regardless of test success or failure
+      set +e # Disable exit on error
+      dotnet test --logger 'junit;LogFilePath=junit.xml'
+      TEST_EXIT_CODE=$?
+      set -e # Re-enable exit on error
+    - |
+      # Downloading Test History
+      mv bin/Debug/net8.0/allure-results .
+      curl -L "https://gitlab.com/api/v4/projects/${CI_PROJECT_ID}/jobs/artifacts/master/download?job=pages" \
+           -H "Authorization: Bearer ${GITLAB_TOKEN}" | 
+      unzip -p - "public/history/*" > allure-results/history || true
+
+    - |
+      # Generating Report
+      allure generate
+    - exit $TEST_EXIT_CODE # Exit with the test command's exit code
+  artifacts:
+    when: always
+    paths:
+      - '**/TestResults/**/*'
+      - allure-report/
+      - allure-results/
+    reports:
+      junit: 'junit.xml'
+
+# ======================================== #
+# ---------------- Pages ----------------- #
+# ======================================== #
+pages:
+  stage: deploy
+  dependencies:
+    - dotnet:test
+  script:
+    - mv allure-report/ public/
+  artifacts:
+    paths:
+      - public
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+ 
